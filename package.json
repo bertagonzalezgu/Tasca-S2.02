@@ -1,0 +1,19 @@
+{
+  "name": "beginners-typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@types/node": "^18.19.130",
+    "husky": "^9.1.7",
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.6.1"
+  },
+  "scripts": {
+    "test": "npm run test:types && vitest --typecheck",
+    "test:types": "tsc --noEmit",
+    "prepare": "husky"
+  }
+}

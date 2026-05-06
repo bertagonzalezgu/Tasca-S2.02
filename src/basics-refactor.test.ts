@@ -384,7 +384,7 @@ Repte 13:
         throw new Error("Failure!");
       }
     } catch (e) {
-      return e.message;
+      return (e as Error).message;
     }
   };
 
@@ -403,21 +403,22 @@ Repte 14:
   Pista: pots crear una interfície base i reutilitzar-la amb extends.
 */
 
-/* describe("Problema d'herència amb extends", () => {
-  interface User {
+ describe("Problema d'herència amb extends", () => {
+  interface Base {
     id: string;
+  }
+
+  interface User extends Base {
     firstName: string;
     lastName: string;
   }
 
-  interface Post {
-    id: string;
+  interface Post extends Base{
     title: string;
     body: string;
   }
 
-  interface Comment {
-    id: string;
+  interface Comment extends Base{
     comment: string;
   }
 
@@ -426,14 +427,14 @@ Repte 14:
     Expect<Equal<Post, { id: string; title: string; body: string }>>,
     Expect<Equal<Comment, { id: string; comment: string }>>
   ];
-}); */
+});
 
 /*
 Repte 15:
   Actualitza el tipus de retorn de la funció perquè sigui 'User & { posts: Post[] }'.
 */
 
-/* describe("Problema d'intersecció de tipus", () => {
+ describe("Problema d'intersecció de tipus", () => {
   interface User {
     id: string;
     firstName: string;
@@ -446,7 +447,7 @@ Repte 15:
     body: string;
   }
 
-  const getDefaultUserAndPosts = (): unknown => {
+  const getDefaultUserAndPosts = (): User & {posts: Post []} => {
     return {
       id: "1",
       firstName: "Jen",
@@ -470,7 +471,7 @@ Repte 15:
 
     expect(userAndPosts.posts[0].id).toBeTypeOf("string");
   });
-}); */
+});
 
 /*
 Repte 16:
@@ -479,7 +480,7 @@ Repte 16:
   Pista: revisa els Utility Types Pick i Omit.
 */
 
-/* describe("Problema d'Omit i Pick", () => {
+ describe("Problema d'Omit i Pick", () => {
   interface User {
     id: string;
     firstName: string;
@@ -490,29 +491,29 @@ Repte 16:
   //firstName i lastName de User?
   
 
-  type MyType = unknown;
+  type MyType = Pick<User, "firstName" | "lastName">;
 
   type tests = [Expect<Equal<MyType, { firstName: string; lastName: string }>>];
-}); */
+});
 
 /*
 Repte 17:
   La funció 'onFocusChange' is actualment 'unknown'. Visita la documentació de TypeScript i esbrina el tipus apropiat per la funció.
 */
 
-/* describe("Problema de tipus de funció", () => {
+ describe("Problema de tipus de funció", () => {
 
   const addListener = (onFocusChange: any) => {
     onFocusChange(true);
     onFocusChange(false);
   };
 
-  addListener((isFocused) => {
+  addListener((isFocused: boolean) => {
     console.log({ isFocused });
 
     type tests = [Expect<Equal<typeof isFocused, boolean>>];
   });
-}); */
+});
 
 /*
 Repte 18:
@@ -520,7 +521,7 @@ Repte 18:
   Consulta la sintaxi de tipatge de funcions i Promise que hem vist anteriorment per ajudar-te.
 */
 
-/* describe("Problema de tipus de funció amb promeses", () => {
+ describe("Problema de tipus de funció amb promeses", () => {
 
     interface User {
         id: string;
@@ -529,8 +530,8 @@ Repte 18:
       }
       
       const createThenGetUser = async (
-        createUser: unknown,
-        getUser: unknown,
+        createUser: () => Promise<string>,
+        getUser: (id: string) => Promise<User>,
       ): Promise<User> => {
         const userId: string = await createUser();
       
@@ -556,7 +557,7 @@ Repte 18:
       lastName: "Simmons",
     });
   });
-}); */
+});
 
 /*
 Repte:

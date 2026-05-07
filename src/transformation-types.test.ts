@@ -1,5 +1,5 @@
-// import { describe, expect, it } from "vitest";
-// import { Equal, Expect } from "./helpers/type-utils";
+ import { describe, expect, it, Vitest } from "vitest";
+ import { Equal, Expect } from "./helpers/type-utils";
 
 /*
 Repte 1:
@@ -8,24 +8,24 @@ Llegeix la documentació de TypeScript sobre Utility Types i esbrina com utilitz
   Pista: pots utilitzar typeof per obtenir el tipus d'una funció.
 */
 
-/* describe("Transformació: obtenir el tipus de retorn d'una funció", () => {
+ describe("Transformació: obtenir el tipus de retorn d'una funció", () => {
   const myFunc = () => {
     return "hello";
   };
 
   //Com podem extreure MyFuncReturn a partir de myFunc?
   
-  type MyFuncReturn = unknown;
+  type MyFuncReturn = ReturnType<() => string>;
 
   type tests = [Expect<Equal<MyFuncReturn, string>>];
-}); */
+});
 
 /*
 Repte 2:
   Utilitza Parameters per obtenir el tipus dels paràmetres de la funció makeQuery.
 */
 
-/* describe("Transformació: obtenir els paràmetres d'una funció", () => {
+ describe("Transformació: obtenir els paràmetres d'una funció", () => {
   const makeQuery = (
     url: string,
     opts?: {
@@ -37,12 +37,9 @@ Repte 2:
     },
   ) => {};
 
-  type MakeQueryParameters = unknown;
+  type MakeQueryParameters = Parameters<typeof makeQuery>;
 
-  type tests = [
-    Expect<
-      Equal<
-        MakeQueryParameters,
+  type tests = [Expect<Equal<MakeQueryParameters,
         [
           url: string,
           opts?: {
@@ -52,11 +49,8 @@ Repte 2:
             };
             body?: string;
           },
-        ]
-      >
-    >,
-  ];
-}); */
+        ]>>];
+});
 
 /*
 Repte 3:
@@ -64,7 +58,7 @@ Repte 3:
   Pista: fixa't que la funció retorna una Promise.
 */
 
-/* describe("Transformació: obtenir el tipus de retorn d'una funció asíncrona", () => {
+ describe("Transformació: obtenir el tipus de retorn d'una funció asíncrona", () => {
   const getUser = () => {
     return Promise.resolve({
       id: "123",
@@ -73,12 +67,12 @@ Repte 3:
     });
   };
 
-  type ReturnValue = unknown;
+  type ReturnValue = Awaited<ReturnType<typeof getUser>>;
 
   type tests = [
     Expect<Equal<ReturnValue, { id: string; name: string; email: string }>>,
   ];
-}); */
+});
 
 /*
 Repte 4:
@@ -86,24 +80,24 @@ Repte 4:
   Pista: revisa l'operador keyof.
 */
 
-/* describe("Transformació: obtenir les claus d'un objecte", () => {
+ describe("Transformació: obtenir les claus d'un objecte", () => {
   const testingFrameworks = {
     vitest: { label: "Vitest" },
     jest: { label: "Jest" },
     mocha: { label: "Mocha" },
   };
 
-  type TestingFramework = unknown;
+  type TestingFramework = keyof typeof testingFrameworks; // "vitest" | "jest" | "mocha" - mismo resultado
 
   type tests = [Expect<Equal<TestingFramework, "vitest" | "jest" | "mocha">>];
-}); */
+});
 
 /*
 Repte 5:
   Utilitza indexed access types per obtenir el tipus d'una propietat concreta d'un objecte.
 */
 
-/* describe("Transformació: indexed access amb objectes", () => {
+ describe("Transformació: indexed access amb objectes", () => {
   const fakeDataDefaults = {
     String: "Default string",
     Int: 1,
@@ -112,11 +106,11 @@ Repte 5:
     ID: "id",
   };
 
-  type StringType = unknown;
-  type IntType = unknown;
-  type FloatType = unknown;
-  type BooleanType = unknown;
-  type IDType = unknown;
+  type StringType = typeof fakeDataDefaults["String"]; // para acceder al tipo de propiedad añadir así como string entre []
+  type IntType = typeof fakeDataDefaults["Int"]; 
+  type FloatType = typeof fakeDataDefaults["Float"];
+  type BooleanType = typeof fakeDataDefaults["Boolean"];
+  type IDType = typeof fakeDataDefaults["ID"];
 
   type tests = [
     Expect<Equal<StringType, string>>,
@@ -125,7 +119,7 @@ Repte 5:
     Expect<Equal<BooleanType, boolean>>,
     Expect<Equal<IDType, string>>,
   ];
-}); */
+});
 
 /*
 Repte 6:
@@ -133,7 +127,7 @@ Repte 6:
   Pista: fixa't en l'ús de "as const".
 */
 
-/* describe("Transformació: indexed access amb unions", () => {
+ describe("Transformació: indexed access amb unions", () => {
   const programModeEnumMap = {
     GROUP: "group",
     ANNOUNCEMENT: "announcement",
@@ -143,7 +137,7 @@ Repte 6:
     PLANNED_SELF_DIRECTED: "plannedSelfDirected",
   } as const;
 
-  type IndividualProgram = unknown;
+  type IndividualProgram = typeof programModeEnumMap["ONE_ON_ONE" | "SELF_DIRECTED" | "PLANNED_ONE_ON_ONE" | "PLANNED_SELF_DIRECTED"];
 
   type tests = [
     Expect<
@@ -153,7 +147,7 @@ Repte 6:
       >
     >,
   ];
-}); */
+});
 
 /*
 Repte 7:

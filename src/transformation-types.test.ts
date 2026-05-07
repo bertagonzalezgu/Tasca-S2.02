@@ -154,31 +154,31 @@ Repte 7:
   Utilitza indexed access types i unions per obtenir el tipus dels valors d'un array.
 */
 
-/* describe("Transformació: obtenir el tipus dels valors d'un array", () => {
+ describe("Transformació: obtenir el tipus dels valors d'un array", () => {
   const fruits = ["apple", "banana", "orange"] as const;
 
-  type AppleOrBanana = unknown;
-  type Fruit = unknown;
+  type AppleOrBanana = typeof fruits[0 | 1]; // para arrays también poner | en vez de ,
+  type Fruit = typeof fruits[number]; // incluye todos los valores porque las arrays son numeros
 
   type tests = [
     Expect<Equal<AppleOrBanana, "apple" | "banana">>,
     Expect<Equal<Fruit, "apple" | "banana" | "orange">>,
   ];
-}); */
+});
 
 /*
 Repte 8:
   Utilitza indexed access types per obtenir el tipus dels valors d'un objecte amb as const.
 */
 
-/* describe("Transformació: obtenir el tipus dels valors d'un objecte amb as const", () => {
+ describe("Transformació: obtenir el tipus dels valors d'un objecte amb as const", () => {
   const frontendToBackendEnumMap = {
     singleModule: "SINGLE_MODULE",
     multiModule: "MULTI_MODULE",
     sharedModule: "SHARED_MODULE",
   } as const;
 
-  type BackendModuleEnum = unknown;
+  type BackendModuleEnum = typeof frontendToBackendEnumMap[keyof typeof frontendToBackendEnumMap];
 
   type tests = [
     Expect<
@@ -188,14 +188,14 @@ Repte 8:
       >
     >,
   ];
-}); */
+});
 
 /*
 Repte 9:
   Dona un exemple de terminologia: union, discriminated union i enum.
 */
 
-/* describe("Transformació: terminologia de tipus", () => {
+ describe("Transformació: terminologia de tipus", () => {
   type A =
     | { type: "a"; a: string }
     | { type: "b"; b: string }
@@ -208,7 +208,7 @@ Repte 9:
     B = "b",
     C = "c",
   }
-}); */
+});
 
 /*
 Repte 10:

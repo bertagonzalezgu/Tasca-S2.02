@@ -196,17 +196,23 @@ Repte 9:
 */
 
  describe("Transformació: terminologia de tipus", () => {
-  type A =
-    | { type: "a"; a: string }
-    | { type: "b"; b: string }
-    | { type: "c"; c: string };
+  
+  
+  // discriminated union
+  type enviar = 
+    | { type: "email"; a: string }
+    | { type: "sms"; b: number }
 
-  type B = "a" | "b" | "c";
 
-  enum C {
-    A = "a",
-    B = "b",
-    C = "c",
+  // union
+  type myColor = "Yellow" | "Blue" | "Pink";
+
+  
+  // enum
+  enum batery {
+    bateryLow = "bateryLow",
+    noBatery = "noBatery",
+    bateryFull = "bateryFull",
   }
 });
 
@@ -216,18 +222,18 @@ Repte 10:
   Pista: revisa Extract.
 */
 
-/* describe("Transformació: extract d'una discriminated union", () => {
+ describe("Transformació: extract d'una discriminated union", () => {
   type Event =
     | { type: "click"; event: MouseEvent }
     | { type: "focus"; event: FocusEvent }
     | { type: "keydown"; event: KeyboardEvent };
 
-  type ClickEvent = unknown;
+  type ClickEvent = Extract<Event, { type: "click"; event: MouseEvent }>;
 
   type tests = [
     Expect<Equal<ClickEvent, { type: "click"; event: MouseEvent }>>,
   ];
-}); */
+});
 
 /*
 Repte 11:
@@ -235,13 +241,13 @@ Repte 11:
   Pista: revisa Exclude.
 */
 
-/* describe("Transformació: exclude d'una discriminated union", () => {
+ describe("Transformació: exclude d'una discriminated union", () => {
   type Event =
     | { type: "click"; event: MouseEvent }
     | { type: "focus"; event: FocusEvent }
     | { type: "keydown"; event: KeyboardEvent };
 
-  type NonKeyDownEvents = unknown;
+  type NonKeyDownEvents = Exclude<Event, { type: "keydown"; event: KeyboardEvent }>;
 
   type tests = [
     Expect<
@@ -252,23 +258,23 @@ Repte 11:
       >
     >,
   ];
-}); */
+});
 
 /*
 Repte 12:
   Extreu el tipus del discriminador d'una discriminated union.
 */
 
-/* describe("Transformació: obtenir el tipus del discriminador", () => {
+ describe("Transformació: obtenir el tipus del discriminador", () => {
   type Event =
     | { type: "click"; event: MouseEvent }
     | { type: "focus"; event: FocusEvent }
     | { type: "keydown"; event: KeyboardEvent };
 
-  type EventType = unknown;
+  type EventType = Event["type"];
 
   type tests = [Expect<Equal<EventType, "click" | "focus" | "keydown">>];
-}); */
+});
 
 /*
 Repte 13:
@@ -279,14 +285,14 @@ Repte 13:
   Pista: utilitza typeof i indexed access ([number]).
 */
 
-/* describe("Transformació: obtenir tipus a partir d'un array", () => {
+ describe("Transformació: obtenir tipus a partir d'un array", () => {
   const fruits = ["apple", "banana", "orange"] as const;
 
-  type AppleOrBanana = unknown;
-  type Fruit = unknown;
+  type AppleOrBanana = typeof fruits[0 | 1];
+  type Fruit = typeof fruits[number];
 
   type tests = [
     Expect<Equal<AppleOrBanana, "apple" | "banana">>,
     Expect<Equal<Fruit, "apple" | "banana" | "orange">>,
   ];
-}); */
+});

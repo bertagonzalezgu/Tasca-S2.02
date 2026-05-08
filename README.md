@@ -72,6 +72,6 @@ npm run test:types
 
 If any validation fails, the commit is blocked. This ensures that the repository remains clean and free of type-related bugs or broken tests.
 
-## Llicència
+## License
 
 GPL-3.0

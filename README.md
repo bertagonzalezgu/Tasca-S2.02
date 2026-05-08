@@ -2,13 +2,13 @@
 
 This repository contains my solutions for the IT Academy Sprint 2 practical exercises. The goal of this project was to master fundamental TypeScript concepts, ranging from basic static typing to advanced type transformations.
 
-## 🚀 Technologies Used
+## Technologies Used
 
 - **TypeScript**: Main language used for static typing and type safety.
 - **Vitest**: Testing framework used to validate the solutions.
 - **Husky**: Automated Git hooks to ensure code quality before every commit.
 
-## 🛠️ Installation & Usage
+## Installation & Usage
 
 1. **Clone this repository:**
    ```bash
